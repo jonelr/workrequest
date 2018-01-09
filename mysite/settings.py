@@ -79,6 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'workrequest',
         'USER': 'wruser',
+		'PASSWORD': os.getenv('ORD'),
         'HOST': '172.18.0.2',
         'PORT': '5432',
     }
