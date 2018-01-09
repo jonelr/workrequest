@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+from datetime import datetime
 
 
 # Create your models here.
@@ -53,6 +55,17 @@ class WorkRequest(models.Model):
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return self.title
+
+
+class Hours(models.Model):
+    class Meta:
+        verbose_name_plural = "Hours"
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    workrequest = models.ForeignKey(WorkRequest, on_delete=models.CASCADE)
+    week_ending = models.DateField(default=datetime.now)
+    hours = models.IntegerField(default=8)
+
+
