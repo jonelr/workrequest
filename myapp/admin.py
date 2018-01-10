@@ -1,9 +1,16 @@
 from django.contrib import admin
 
-from .models import WorkRequest, Area, Plant, Category, Status, BusinessUnit, Hours
+from .models import WorkRequest, Area, Plant, Category, Status, BusinessUnit, Hours, TimeSheet
 
 # Register your models here.
-admin.site.register({Area, Plant, Category, Status, BusinessUnit})
+admin.site.register({Area, Plant, Category, Status, BusinessUnit, })
+
+
+@admin.register(TimeSheet)
+class TimeSheetAdmin(admin.ModelAdmin):
+    list_display = ('account', 'week_ending', 'hours')
+    list_filter = ('account',)
+    date_hierarchy = 'week_ending'
 
 
 @admin.register(WorkRequest)

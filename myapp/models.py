@@ -1,6 +1,7 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
-from datetime import datetime
 
 
 # Create your models here.
@@ -64,7 +65,7 @@ class Hours(models.Model):
         verbose_name_plural = "Hours"
 
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
-    account = models.CharField(max_length=50,blank=True, null=True)
+    account = models.CharField(max_length=50, blank=True, null=True)
     workrequest = models.ForeignKey(WorkRequest, on_delete=models.CASCADE)
     week_ending = models.DateField(default=datetime.now)
     hours = models.IntegerField(default=8)
@@ -73,3 +74,10 @@ class Hours(models.Model):
         return 'Record %s' % self.id
 
 
+class TimeSheet(models.Model):
+    account = models.ForeignKey(User, on_delete=models.CASCADE)
+    week_ending = models.DateField(default=datetime.now)
+    hours = models.IntegerField()
+
+    def __str__(self):
+        return '%s - %s:%d' % (self.week_ending, self.account, self.hours)
