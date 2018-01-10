@@ -63,9 +63,13 @@ class Hours(models.Model):
     class Meta:
         verbose_name_plural = "Hours"
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    account = models.CharField(max_length=50,blank=True, null=True)
     workrequest = models.ForeignKey(WorkRequest, on_delete=models.CASCADE)
     week_ending = models.DateField(default=datetime.now)
     hours = models.IntegerField(default=8)
+
+    def __str__(self):
+        return 'Record %s' % self.id
 
 
