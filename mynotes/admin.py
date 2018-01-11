@@ -11,7 +11,6 @@ class TrainingAdmin(admin.ModelAdmin):
     exclude = ('account',)
 
     def save_model(self, request, obj, form, change):
-        print(request.user)
         if not obj.account:
             obj.account = request.user
         super(TrainingAdmin, self).save_model(request, obj, form, change)
