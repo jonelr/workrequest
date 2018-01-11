@@ -21,3 +21,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='admin/')),
     path('admin/', admin.site.urls),
 ]
+
+admin.site.site_header = 'My Admin Site'
+admin.site.site_title = 'My Admin Site'
