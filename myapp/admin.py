@@ -1,9 +1,12 @@
 from django.contrib import admin
 
-from .models import WorkRequest, Area, Plant, Category, Status, BusinessUnit, Hours, TimeSheet
+from .models import WorkRequest, Area, Plant, Category, \
+    Status, BusinessUnit, Hours, TimeSheet, \
+    SqlVersion, OsVersion, SqlServer, SqlLog
 
 # Register your models here.
-admin.site.register({Area, Plant, Category, Status, BusinessUnit, })
+admin.site.register({Area, Plant, Category, Status, BusinessUnit,
+                     SqlVersion, OsVersion, })
 
 
 @admin.register(TimeSheet)
@@ -24,9 +27,9 @@ class WorkRequestAdmin(admin.ModelAdmin):
 @admin.register(Hours)
 class HoursAdmin(admin.ModelAdmin):
     date_hierarchy = 'week_ending'
-    list_display = ('workrequest', 'week_ending')
+    list_display = ('workrequest', 'week_ending', 'hours')
     list_filter = ('account',)
-    fields = (('workrequest'), ('week_ending', 'hours'))
+    fields = (('workrequest'), ('week_ending', 'hours'), 'notes')
 
     def save_model(self, request, obj, form, change):
         print(request.user)
@@ -39,3 +42,15 @@ class HoursAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(account=request.user)
+
+
+@admin.register(SqlLog)
+class SqlLogAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date',)
+    list_filter = ('servers',)
+
+
+@admin.register(SqlServer)
+class SqlServerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'os', 'version')
+    list_filter = ('version',)

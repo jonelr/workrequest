@@ -1,11 +1,12 @@
 ### Todo
 
-1. Filter hours listing by currently logged in user
+1. Add server and changes to server functionality
 
 ### Changes
 
 1. Add initial workrequest creation
-2. Add hours creation based on workrequest
+1. Add hours creation based on workrequest
+1. Filter hours listing by currently logged in user
 
 ### Gunicorn
 
