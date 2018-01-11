@@ -105,6 +105,8 @@ class SqlServer(models.Model):
     date_added = models.DateField(auto_now=True)
     version = models.ForeignKey(SqlVersion, on_delete=models.CASCADE, related_name='servers')
     os = models.ForeignKey(OsVersion, on_delete=models.CASCADE, related_name='servers')
+    sap = models.BooleanField(default=False)
+    mes = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

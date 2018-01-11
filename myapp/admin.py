@@ -52,5 +52,5 @@ class SqlLogAdmin(admin.ModelAdmin):
 
 @admin.register(SqlServer)
 class SqlServerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'os', 'version')
-    list_filter = ('version',)
+    list_display = ('name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
+    list_filter = ('version', 'sap', 'mes')
