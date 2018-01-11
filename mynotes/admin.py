@@ -7,6 +7,7 @@ from .models import Training
 @admin.register(Training)
 class TrainingAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_taken', 'account')
+    list_filter = ('account',)
     search_fields = ('title',)
     exclude = ('account',)
 
