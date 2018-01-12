@@ -50,7 +50,7 @@ class SqlLogInline(admin.TabularInline):
 
 @admin.register(SqlLog)
 class SqlLogAdmin(admin.ModelAdmin):
-    list_display = ('server', 'title', 'date',)
+    list_display = ('servers', 'title', 'date',)
     list_filter = ('servers',)
 
 
