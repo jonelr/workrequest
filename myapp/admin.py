@@ -32,7 +32,6 @@ class HoursAdmin(admin.ModelAdmin):
     fields = (('workrequest'), ('week_ending', 'hours'), 'notes')
 
     def save_model(self, request, obj, form, change):
-        print(request.user)
         if not obj.account:
             obj.account = request.user
         super(HoursAdmin, self).save_model(request, obj, form, change)
@@ -50,8 +49,14 @@ class SqlLogInline(admin.TabularInline):
 
 @admin.register(SqlLog)
 class SqlLogAdmin(admin.ModelAdmin):
-    list_display = ('servers', 'title', 'date',)
-    list_filter = ('servers',)
+    list_display = ('servers', 'title', 'date', 'account')
+    list_filter = ('servers', 'account',)
+    exclude = ('account', )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.account:
+            obj.account = request.user
+        super(SqlLogAdmin, self).save_model(request, obj, form, change)
 
 
 @admin.register(SqlServer)
