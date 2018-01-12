@@ -44,6 +44,10 @@ class HoursAdmin(admin.ModelAdmin):
         return qs.filter(account=request.user)
 
 
+class SqlLogInline(admin.TabularInline):
+    model = SqlLog
+
+
 @admin.register(SqlLog)
 class SqlLogAdmin(admin.ModelAdmin):
     list_display = ('title', 'date',)
@@ -54,3 +58,4 @@ class SqlLogAdmin(admin.ModelAdmin):
 class SqlServerAdmin(admin.ModelAdmin):
     list_display = ('name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
     list_filter = ('version', 'sap', 'mes')
+    inlines = [SqlLogInline, ]
