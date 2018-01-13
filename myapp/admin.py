@@ -49,9 +49,10 @@ class SqlLogInline(admin.TabularInline):
 
 @admin.register(SqlLog)
 class SqlLogAdmin(admin.ModelAdmin):
-    list_display = ('servers', 'title', 'date', 'account')
+    list_display = ('title', 'date', 'account')
     list_filter = ('servers', 'account',)
     exclude = ('account', )
+    filter_horizontal = ('servers',)
 
     def save_model(self, request, obj, form, change):
         if not obj.account:
