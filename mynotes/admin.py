@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Training, TimeOff
+from .models import Training, TimeOff, Outage
 
 
 # Register your models here.
@@ -27,7 +27,7 @@ class TrainingAdmin(admin.ModelAdmin):
 class TimeOffAdmin(admin.ModelAdmin):
     list_filter = ('account',)
     list_display = ('account', 'date_taken', 'hours')
-    exclude = ('account', )
+    exclude = ('account',)
 
     def save_model(self, request, obj, form, change):
         if not obj.account:
@@ -39,3 +39,15 @@ class TimeOffAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(account=request.user)
+
+
+@admin.register(Outage)
+class OutageAdmin(admin.ModelAdmin):
+    list_filter = ('reported_by',)
+    list_display = ('title', 'date_occured', 'reported_by', )
+    fields = ('title', 'date_occured', 'description',)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.reported_by = request.user
+        super(OutageAdmin, self).save_model(request, obj, form, change)
