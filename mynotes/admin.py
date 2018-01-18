@@ -44,7 +44,7 @@ class TimeOffAdmin(admin.ModelAdmin):
 @admin.register(Outage)
 class OutageAdmin(admin.ModelAdmin):
     list_filter = ('reported_by',)
-    list_display = ('title', 'date_occured', 'reported_by', )
+    list_display = ('title', 'date_occured', 'reported_by',)
     fields = ('title', 'date_occured', 'description',)
 
     def save_model(self, request, obj, form, change):
@@ -55,12 +55,18 @@ class OutageAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_by', 'complete')
+    list_display = ('title', 'created_by', 'complete', 'created_on')
     list_filter = ('created_by', 'complete')
-    fields = ('title', 'complete', )
+    fields = ('title', 'complete',)
     search_fields = ('title',)
 
     def save_model(self, request, obj, form, change):
         if not change:
             obj.created_by = request.user
         super().save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(created_by=request.user)
