@@ -112,7 +112,7 @@ def get_default_landscape():
 
 
 class SqlServer(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     cpu = models.IntegerField(default=4)
     ram = models.IntegerField()
     date_added = models.DateField(auto_now=True)
