@@ -2,11 +2,11 @@ from django.contrib import admin
 
 from .models import WorkRequest, Area, Plant, Category, \
     Status, BusinessUnit, Hours, TimeSheet, \
-    SqlVersion, OsVersion, SqlServer, SqlLog
+    SqlVersion, OsVersion, SqlServer, SqlLog, Landscape
 
 # Register your models here.
 admin.site.register({Area, Plant, Category, Status, BusinessUnit,
-                     SqlVersion, OsVersion, })
+                     SqlVersion, OsVersion, Landscape })
 
 
 @admin.register(TimeSheet)
@@ -63,4 +63,4 @@ class SqlLogAdmin(admin.ModelAdmin):
 @admin.register(SqlServer)
 class SqlServerAdmin(admin.ModelAdmin):
     list_display = ('name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
-    list_filter = ('version', 'sap', 'mes')
+    list_filter = ('landscape', 'version', 'sap', 'mes')

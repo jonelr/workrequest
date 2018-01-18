@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Area(models.Model):
     title = models.CharField(max_length=50)
 
@@ -98,6 +99,18 @@ class OsVersion(models.Model):
         return self.name
 
 
+class Landscape(models.Model):
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title
+
+
+def get_default_landscape():
+    """Returns default Landscape foreign key value of Production"""
+    return Landscape.objects.get(id=4).id
+
+
 class SqlServer(models.Model):
     name = models.CharField(max_length=50)
     cpu = models.IntegerField(default=4)
@@ -107,6 +120,7 @@ class SqlServer(models.Model):
     os = models.ForeignKey(OsVersion, on_delete=models.CASCADE, related_name='servers')
     sap = models.BooleanField(default=False)
     mes = models.BooleanField(default=False)
+    landscape = models.ForeignKey(Landscape, on_delete=models.CASCADE, default=get_default_landscape)
 
     def __str__(self):
         return self.name
