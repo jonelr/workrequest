@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Training, TimeOff, Outage
+from .models import Training, TimeOff, Outage, Task
 
 
 # Register your models here.
@@ -51,3 +51,16 @@ class OutageAdmin(admin.ModelAdmin):
         if not change:
             obj.reported_by = request.user
         super(OutageAdmin, self).save_model(request, obj, form, change)
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_by', 'complete')
+    list_filter = ('created_by', 'complete')
+    fields = ('title', 'complete', )
+    search_fields = ('title',)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        super().save_model(request, obj, form, change)
