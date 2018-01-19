@@ -28,6 +28,7 @@ class TimeOffAdmin(admin.ModelAdmin):
     list_filter = ('account',)
     list_display = ('account', 'date_taken', 'hours')
     exclude = ('account',)
+    date_hierarchy = 'date_taken'
 
     def save_model(self, request, obj, form, change):
         if not obj.account:
