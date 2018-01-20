@@ -131,6 +131,7 @@ class SqlServer(models.Model):
 class SqlLog(models.Model):
     title = models.CharField(max_length=50)
     date = models.DateField(default=datetime.now)
+    time_added = models.TimeField(auto_now=True)
     description = models.TextField(blank=True, null=True)
     # servers = models.ForeignKey(SqlServer, on_delete=models.CASCADE, related_name='logs')
     servers = models.ManyToManyField(SqlServer)
