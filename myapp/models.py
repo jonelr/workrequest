@@ -120,7 +120,8 @@ class SqlServer(models.Model):
     os = models.ForeignKey(OsVersion, on_delete=models.CASCADE, related_name='servers')
     sap = models.BooleanField(default=False)
     mes = models.BooleanField(default=False)
-    landscape = models.ForeignKey(Landscape, on_delete=models.CASCADE, default=get_default_landscape)
+    monitor = models.BooleanField(default=True)
+    landscape = models.ForeignKey(Landscape, on_delete=models.CASCADE, default=4)
 
     def __str__(self):
         return self.name
