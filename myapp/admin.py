@@ -51,7 +51,7 @@ class SqlLogInline(admin.TabularInline):
 class SqlLogAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'time_added', 'account')
     list_filter = ('servers', 'account',)
-    exclude = ('account', )
+    exclude = ('account', 'time_added')
     filter_horizontal = ('servers',)
 
     def save_model(self, request, obj, form, change):
