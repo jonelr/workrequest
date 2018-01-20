@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
-from datetime import datetime
 import socket
+from django.conf import settings
 
 from myapp.models import SqlServer, SqlLog
 
@@ -18,7 +18,8 @@ def sql_ping(sqlserver):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         s.connect((sqlserver.name, sqlserver.port))
-        print('%s is listening on port %s' % (sqlserver, sqlserver.port))
+        if settings.DEBUG:
+            print('%s is listening on port %s' % (sqlserver, sqlserver.port))
     except socket.error:
         log_event(sqlserver)
     finally:
