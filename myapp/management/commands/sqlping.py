@@ -32,4 +32,4 @@ class Command(BaseCommand):
         sqlservers = SqlServer.objects.all()
         self.stdout.write('SQL Servers: %s' % sqlservers.count())
         for sqlserver in sqlservers:
-            sql_ping(sqlserver)
+            if sqlserver.monitor: sql_ping(sqlserver)
