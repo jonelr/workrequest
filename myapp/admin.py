@@ -64,4 +64,4 @@ class SqlLogAdmin(admin.ModelAdmin):
 class SqlServerAdmin(admin.ModelAdmin):
     list_display = ('name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
     list_filter = ('landscape', 'version', 'sap', 'mes')
-    fields = (('name', ), ('os','version',), ('cpu', 'ram'), ('mes', 'sap', 'monitor'), 'landscape')
+    fields = (('name', ), ('os','version',), ('cpu', 'ram'), ('mes', 'sap', 'monitor','port'), 'landscape')

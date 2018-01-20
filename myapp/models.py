@@ -121,6 +121,7 @@ class SqlServer(models.Model):
     sap = models.BooleanField(default=False)
     mes = models.BooleanField(default=False)
     monitor = models.BooleanField(default=True)
+    port = models.IntegerField(default=1433)
     landscape = models.ForeignKey(Landscape, on_delete=models.CASCADE, default=4)
 
     def __str__(self):
