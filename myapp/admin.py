@@ -55,7 +55,7 @@ class SqlLogAdmin(admin.ModelAdmin):
     filter_horizontal = ('servers',)
 
     def save_model(self, request, obj, form, change):
-        if not obj.account:
+        if not change:
             obj.account = request.user
         super(SqlLogAdmin, self).save_model(request, obj, form, change)
 
