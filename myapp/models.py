@@ -128,7 +128,7 @@ class SqlServer(models.Model):
     def __str__(self):
         return self.name
 
-    def __str__(self):
+    def __repr__(self):
         return '%s:%s' % (self.id, self.name)
 
 
