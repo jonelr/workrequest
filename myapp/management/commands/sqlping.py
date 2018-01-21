@@ -5,6 +5,11 @@ from django.conf import settings
 from myapp.models import SqlServer, SqlLog
 
 
+def update_status(sqlserver, online):
+    sqlserver.online = online
+    sqlserver.save()
+
+
 def log_event(sqlserver):
     s = set()
     s.add(sqlserver)
@@ -18,10 +23,12 @@ def sql_ping(sqlserver):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         s.connect((sqlserver.name, sqlserver.port))
+        update_status(sqlserver, True)
         if settings.DEBUG:
             print('%s is listening on port %s' % (sqlserver, sqlserver.port))
     except socket.error:
         log_event(sqlserver)
+        update_status(sqlserver, False)
     finally:
         s.close()
 
@@ -31,6 +38,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         sqlservers = SqlServer.objects.all()
-        self.stdout.write('SQL Servers: %s' % sqlservers.count())
+        # self.stdout.write('SQL Servers: %s' % sqlservers.count())
         for sqlserver in sqlservers:
             if sqlserver.monitor: sql_ping(sqlserver)

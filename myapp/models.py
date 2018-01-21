@@ -123,9 +123,13 @@ class SqlServer(models.Model):
     monitor = models.BooleanField(default=True)
     port = models.IntegerField(default=1433)
     landscape = models.ForeignKey(Landscape, on_delete=models.CASCADE, default=4)
+    online = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
+
+    def __str__(self):
+        return '%s:%s' % (self.id, self.name)
 
 
 class SqlLog(models.Model):
@@ -139,3 +143,6 @@ class SqlLog(models.Model):
 
     def __str__(self):
         return self.title
+
+    def __repr__(self):
+        return '%s:%s' % (self.id, self.title)

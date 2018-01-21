@@ -32,7 +32,7 @@ class HoursAdmin(admin.ModelAdmin):
     fields = (('workrequest'), ('week_ending', 'hours'), 'notes')
 
     def save_model(self, request, obj, form, change):
-        if not obj.account:
+        if not change:
             obj.account = request.user
         super(HoursAdmin, self).save_model(request, obj, form, change)
 
@@ -62,6 +62,7 @@ class SqlLogAdmin(admin.ModelAdmin):
 
 @admin.register(SqlServer)
 class SqlServerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
-    list_filter = ('landscape', 'version', 'sap', 'mes')
+    list_display = ('online','name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
+    list_display_links = ('name',)
+    list_filter = ('online', 'landscape', 'version', 'sap', 'mes')
     fields = (('name', ), ('os','version',), ('cpu', 'ram'), ('mes', 'sap', 'monitor','port'), 'landscape')
