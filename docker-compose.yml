@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  workrequest:
+    hostname: workrequest
+    links:
+      - "postgres"    
+    build: .
+  postgres:
+    image: postgres
+    hostname: workrequest_pg
+    container_name: workrequest_pg
+    expose:
+      - "5432"
+    restart: always
+    environment:
+      POSTGRES_USER: wruser
+      POSTGRES_PASSWORD: b
