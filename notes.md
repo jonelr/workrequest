@@ -13,3 +13,10 @@
 $ gunicorn --bind 0.0.0.0:8000 --reload mysite.wsgi
 
 new technology lima
+
+### Crontab entries
+
+OST=localhost
+ORD=
+
+*/5 * * * * /home/jrienton/.venv/xdjango/bin/python /home/jrienton/xdjango/manage.py sqlping
