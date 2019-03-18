@@ -2,11 +2,12 @@ from django.contrib import admin
 
 from .models import WorkRequest, Area, Plant, Category, \
     Status, BusinessUnit, Hours, TimeSheet, \
-    SqlVersion, OsVersion, SqlServer, SqlLog, Landscape
+    SqlVersion, OsVersion, SqlServer, SqlLog, Landscape, \
+    WebApplication
 
 # Register your models here.
 admin.site.register({Area, Plant, Category, Status, BusinessUnit,
-                     SqlVersion, OsVersion, Landscape })
+                     SqlVersion, OsVersion, Landscape})
 
 
 @admin.register(TimeSheet)
@@ -21,7 +22,8 @@ class WorkRequestAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'date', 'status', 'area', 'business_unit')
     list_filter = ('status', 'business_unit', 'area')
     search_fields = ('title',)
-    fields = ('title', ('business_unit', 'category'), ('status', 'plant', 'area'))
+    fields = ('title', ('business_unit', 'category'),
+              ('status', 'plant', 'area'))
 
 
 @admin.register(Hours)
@@ -62,7 +64,14 @@ class SqlLogAdmin(admin.ModelAdmin):
 
 @admin.register(SqlServer)
 class SqlServerAdmin(admin.ModelAdmin):
-    list_display = ('online','name', 'os', 'version', 'cpu', 'ram', 'mes', 'sap')
+    list_display = ('online', 'name', 'os', 'version',
+                    'cpu', 'ram', 'mes', 'sap')
     list_display_links = ('name',)
     list_filter = ('online', 'landscape', 'version', 'sap', 'mes')
-    fields = (('name', ), ('os','version',), ('cpu', 'ram'), ('mes', 'sap', 'monitor','port'), 'landscape')
+    fields = (('name', ), ('os', 'version',), ('cpu', 'ram'),
+              ('mes', 'sap', 'monitor', 'port'), 'landscape')
+
+
+@admin.register(WebApplication)
+class WebApplicationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url')

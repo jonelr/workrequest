@@ -116,13 +116,16 @@ class SqlServer(models.Model):
     cpu = models.IntegerField(default=4)
     ram = models.IntegerField()
     date_added = models.DateField(auto_now=True)
-    version = models.ForeignKey(SqlVersion, on_delete=models.CASCADE, related_name='servers')
-    os = models.ForeignKey(OsVersion, on_delete=models.CASCADE, related_name='servers')
+    version = models.ForeignKey(
+        SqlVersion, on_delete=models.CASCADE, related_name='servers')
+    os = models.ForeignKey(
+        OsVersion, on_delete=models.CASCADE, related_name='servers')
     sap = models.BooleanField(default=False)
     mes = models.BooleanField(default=False)
     monitor = models.BooleanField(default=True)
     port = models.IntegerField(default=1433)
-    landscape = models.ForeignKey(Landscape, on_delete=models.CASCADE, default=4)
+    landscape = models.ForeignKey(
+        Landscape, on_delete=models.CASCADE, default=4)
     online = models.BooleanField(default=True)
 
     def __str__(self):
@@ -146,3 +149,16 @@ class SqlLog(models.Model):
 
     def __repr__(self):
         return '%s:%s' % (self.id, self.title)
+
+
+class WebApplication(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    date_added = models.DateField(auto_now=True)
+    url = models.CharField(max_length=100)
+    online = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return '%s:%s' % (self.id, self.name)

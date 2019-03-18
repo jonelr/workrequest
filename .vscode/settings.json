@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "/Users/jrienton/.local/share/virtualenvs/Python-NHv0zUiV",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": true,
+    "python.linting.enabled": true
+}
